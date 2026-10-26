@@ -69,6 +69,12 @@ def test_summary_needs_a_delivery_window(shop):
     assert shop.order_summary()["total"] == PRODUCTS["p01"].price + DELIVERY_FEE
 
 
+def test_unknown_delivery_windows_are_refused(shop):
+    with pytest.raises(ValueError, match="unknown window_id"):
+        shop.set_transport_window("2020-01-01-08-10")  # an old date: not offered
+    assert shop.window is None  # nothing was set
+
+
 def test_complete_order_places_it_and_empties_the_cart(shop):
     shop.add_to_cart([{"product_id": "p01", "quantity": 1}])
     shop.set_transport_window(shop.transport_windows()[0]["window_id"])
