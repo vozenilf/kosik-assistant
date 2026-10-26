@@ -1,0 +1,47 @@
+[project]
+name = "kosik-assistant"
+version = "0.1.0"
+description = "A conversational Košík shopping assistant built on agent-harness and MCP."
+readme = "README.md"
+authors = [
+    { name = "vozenilf", email = "vozenilf@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "agent-harness",
+    "fastapi>=0.162.0",
+    "mcp>=2.3.0",
+    "openai>=3.37.0",
+    "pydantic>=2.14.1",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+kosik-chat = "kosik_assistant.cli:main"
+kosik-web = "kosik_assistant.web:main"
+fake-kosik-mcp = "kosik_assistant.server:main"
+
+[build-system]
+requires = ["uv_build>=0.12.24,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+agent-harness = { git = "https://github.com/vozenilf/agent-harness", tag = "phase-5" }
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16.0",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.17.2",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

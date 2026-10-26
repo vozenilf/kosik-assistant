@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets and personal data (allergies are health data)
+.env
+profile.json
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
